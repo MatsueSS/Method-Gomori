@@ -1,0 +1,3 @@
+/home/michael/practisecpp/projects/gomori/build/CMakeFiles/gomori.dir
+/home/michael/practisecpp/projects/gomori/build/CMakeFiles/edit_cache.dir
+/home/michael/practisecpp/projects/gomori/build/CMakeFiles/rebuild_cache.dir
