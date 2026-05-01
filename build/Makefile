@@ -225,6 +225,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/mvag.o: src/mvag.c.o
+.PHONY : src/mvag.o
+
+# target to build an object file
+src/mvag.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/src/mvag.c.o
+.PHONY : src/mvag.c.o
+
+src/mvag.i: src/mvag.c.i
+.PHONY : src/mvag.i
+
+# target to preprocess a source file
+src/mvag.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/src/mvag.c.i
+.PHONY : src/mvag.c.i
+
+src/mvag.s: src/mvag.c.s
+.PHONY : src/mvag.s
+
+# target to generate assembly for a file
+src/mvag.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/src/mvag.c.s
+.PHONY : src/mvag.c.s
+
 src/prepare_simplex.o: src/prepare_simplex.cpp.o
 .PHONY : src/prepare_simplex.o
 
@@ -294,6 +318,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mvag.o"
+	@echo "... src/mvag.i"
+	@echo "... src/mvag.s"
 	@echo "... src/prepare_simplex.o"
 	@echo "... src/prepare_simplex.i"
 	@echo "... src/prepare_simplex.s"

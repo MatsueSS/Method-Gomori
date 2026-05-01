@@ -131,13 +131,13 @@ void PentagonGenerator::good_generate(std::vector<std::vector<double>>& matrix, 
 
     int xB, xC, yC, xD, yD, yE;
 
-    time(nullptr);
+    srand(time(nullptr));
 
-    xC = rand()%7 + 14;
-    yC = rand()%7 + 1;
+    xC = rand()%70 + 140;
+    yC = rand()%70 + 10;
 
-    xD = rand()%7 + 1;
-    yD = rand()%7 + 14;
+    xD = rand()%70 + 10;
+    yD = rand()%70 + 140;
 
     double val_k = (double)(yD-yC)/(xD-xC);
     double val_b = (double)yC - ((double)xC/(xD-xC))*(yD-yC);
@@ -145,8 +145,18 @@ void PentagonGenerator::good_generate(std::vector<std::vector<double>>& matrix, 
     int i_k = static_cast<int>(val_k+1);
     int i_b = static_cast<int>(val_b+1);
 
-    xB = rand()%(xC-xD-1) + (xD+1);
-    yE = rand()%(yD-i_k*xB-i_b-1) + (i_k*xB+i_b+1);
+    int x = rand()%(xC-xD-1) + (xD+1);
+    int y = rand()%(yD-i_k*xB-i_b-1) + (i_k*xB+i_b+1);
+
+    double val_k_xc = (double)(y-yC)/(x-xC);
+    double val_b_xc = (double)yC - xC*val_k_xc;
+
+    xB = static_cast<int>(std::round(-val_b_xc/val_k_xc));
+    
+    double val_k_xd = (double)(yD-y)/(xD-x);
+    double val_b_xd = (double)y - x*val_k_xd;
+
+    yE = static_cast<int>(std::round(val_b_xd));
 
     //B - C
     int a1 = yC - 0;
@@ -182,4 +192,18 @@ void PentagonGenerator::good_generate(std::vector<std::vector<double>>& matrix, 
     int f1 = random_int(1, 5);
     int f2 = random_int(1, 5);
     f = {(double)f1, (double)f2, 0.0};
+    
+    // std::cout << "Сгенерированные вершины:\n";
+    // std::cout << "A(0, 0)\n";
+    // std::cout << "B(" << xB << ", 0)\n";
+    // std::cout << "C(" << xC << ", " << yC << ")\n";
+    // std::cout << "D(" << xD << ", " << yD << ")\n";
+    // std::cout << "E(0, " << yE << ")\n";
+    
+    // std::cout << "\nОграничения:\n";
+    // std::cout << "1: " << a1 << "x + " << b1 << "y ≤ " << c1 << "\n";
+    // std::cout << "2: " << a2 << "x + " << b2 << "y ≤ " << c2 << "\n";
+    // std::cout << "3: " << a3 << "x + " << b3 << "y ≤ " << c3 << "\n";
+
+    return;
 }

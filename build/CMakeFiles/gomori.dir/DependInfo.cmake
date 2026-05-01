@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/michael/practisecpp/projects/gomori/src/mvag.c" "CMakeFiles/gomori.dir/src/mvag.c.o" "gcc" "CMakeFiles/gomori.dir/src/mvag.c.o.d"
   "/home/michael/practisecpp/projects/gomori/src/generator_zlp.cpp" "CMakeFiles/gomori.dir/src/generator_zlp.cpp.o" "gcc" "CMakeFiles/gomori.dir/src/generator_zlp.cpp.o.d"
   "/home/michael/practisecpp/projects/gomori/src/gomori.cpp" "CMakeFiles/gomori.dir/src/gomori.cpp.o" "gcc" "CMakeFiles/gomori.dir/src/gomori.cpp.o.d"
   "/home/michael/practisecpp/projects/gomori/src/good_funcs.cpp" "CMakeFiles/gomori.dir/src/good_funcs.cpp.o" "gcc" "CMakeFiles/gomori.dir/src/good_funcs.cpp.o.d"

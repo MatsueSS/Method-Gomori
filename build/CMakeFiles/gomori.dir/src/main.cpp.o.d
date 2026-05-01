@@ -181,17 +181,11 @@ CMakeFiles/gomori.dir/src/main.cpp.o: \
  /usr/include/c++/11/tr1/modified_bessel_func.tcc \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
- /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /home/michael/practisecpp/projects/gomori/src/lab1.cpp \
- /home/michael/practisecpp/projects/gomori/include/good_funcs.h \
- /home/michael/practisecpp/projects/gomori/include/prepare_simplex.h \
- /home/michael/practisecpp/projects/gomori/include/good_funcs.h \
- /home/michael/practisecpp/projects/gomori/include/generator_zlp.h \
- /usr/include/c++/11/random /usr/include/c++/11/bits/random.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h \
- /usr/include/c++/11/bits/random.tcc /usr/include/c++/11/numeric \
- /usr/include/c++/11/bits/stl_numeric.h /usr/include/c++/11/bit \
- /usr/include/c++/11/pstl/glue_numeric_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/parse_numbers.h \
  /home/michael/practisecpp/projects/gomori/include/gomori.h \
- /home/michael/practisecpp/projects/gomori/include/simplex_method.h
+ /home/michael/practisecpp/projects/gomori/include/simplex_method.h \
+ /home/michael/practisecpp/projects/gomori/include/good_funcs.h \
+ /home/michael/practisecpp/projects/gomori/src/mvag.c \
+ /usr/include/c++/11/stdlib.h /usr/include/x86_64-linux-gnu/sys/time.h

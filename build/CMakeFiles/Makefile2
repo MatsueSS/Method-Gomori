@@ -81,12 +81,12 @@ clean: CMakeFiles/gomori.dir/clean
 CMakeFiles/gomori.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gomori.dir/build.make CMakeFiles/gomori.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/michael/practisecpp/projects/gomori/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target gomori"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/michael/practisecpp/projects/gomori/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target gomori"
 .PHONY : CMakeFiles/gomori.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/gomori.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/michael/practisecpp/projects/gomori/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/michael/practisecpp/projects/gomori/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/gomori.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/michael/practisecpp/projects/gomori/build/CMakeFiles 0
 .PHONY : CMakeFiles/gomori.dir/rule

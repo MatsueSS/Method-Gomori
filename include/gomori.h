@@ -11,24 +11,28 @@ private:
     bool bad_quest;
 
     bool has_remnant();
-    int index_lead();
+    //int index_lead();
     double get_gomori_fraction(double val);
 
 public:
     gomori(std::vector<std::vector<double>>&& matrix, std::vector<double>&& b, std::vector<double>&& f, std::vector<int>&& sign, optimal_func param);
 
     void add_new_restrict();
-    int prepare_gomori();
+    //int prepare_gomori();
     int method_gomori();
-    void make_good_plan();
+    //void make_good_plan();
+
+    bool primal_simplex_step();
 
     bool has_negative_b();
     bool dual_simplex_step();
 
     double get_optimum() const;
 
+    std::vector<double> get_basise();
+
     //Отладка
-    void print_result() const;
+    //void print_result();
 };
 
 #endif

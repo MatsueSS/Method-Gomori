@@ -15,4 +15,5 @@ add_executable(${PROJECT_NAME}
     src/simplex_method
     src/generator_zlp.cpp
     src/gomori.cpp
+    src/mvag.c
 )
