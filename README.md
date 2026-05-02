@@ -1,0 +1,9 @@
+Hi, here I implemented the Gomory method and the branch-and-bound method for finding the best of two methods for a multidimensional knapsack (3-dimensional) and for finding the average number of cuts for the Gomory method on certain problems.
+
+I decided to write the Gomory method in C++ because its asymptotic complexity is O(kn^3). There's no reason to use a lower-level language with fewer checks. I implemented the branch-and-bound method itself in C because I needed to recreate conditions where the branch-and-bound method offers at least a small advantage, as its asymptotic complexity is much higher – O(2^n).
+
+The Gomory method involves executing the simplex method problem. Everything is implemented in the corresponding filenames. You can compile it using CMake. The Gomory method works well and has been tested on a large number of test cases. My method has a slight convergence. This can be seen by generating random problems and letting the method solve them.
+
+The branch-and-bound method is implemented using a priority queue data structure, which I implemented manually. This method also includes an optimization: it doesn't store an array of visited items, but stores a bit mask. This method has been tested on a large number of problems and on randomly generated problems that were tested using Gomory's method.
+
+The final experiment, described in the main.cpp function, demonstrates random problem generation. When solving random problems, the Gomory method and the branch-and-bound method always yielded the same answer for all of these problems. No differences in the answers were found for over 2,000 problems, indicating the correctness of the algorithms. The graphs of the algorithms' results are also fully consistent with their algorithmic complexity, further confirming the correctness of the algorithms.
