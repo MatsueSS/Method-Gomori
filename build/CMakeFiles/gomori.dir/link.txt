@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/gomori.dir/src/main.cpp.o CMakeFiles/gomori.dir/src/good_funcs.cpp.o CMakeFiles/gomori.dir/src/prepare_simplex.cpp.o CMakeFiles/gomori.dir/src/simplex_method.cpp.o CMakeFiles/gomori.dir/src/generator_zlp.cpp.o CMakeFiles/gomori.dir/src/gomori.cpp.o CMakeFiles/gomori.dir/src/mvag.c.o -o gomori 
