@@ -523,7 +523,11 @@ CMakeFiles/gomori.dir/src/gomori.cpp.o: ../src/gomori.cpp \
   /usr/include/c++/11/bits/node_handle.h \
   /usr/include/c++/11/bits/unordered_map.h \
   /usr/include/c++/11/bits/erase_if.h \
-  /usr/include/c++/11/pstl/execution_defs.h
+  /usr/include/c++/11/pstl/execution_defs.h \
+  /usr/include/c++/11/map \
+  /usr/include/c++/11/bits/stl_tree.h \
+  /usr/include/c++/11/bits/stl_map.h \
+  /usr/include/c++/11/bits/stl_multimap.h
 
 CMakeFiles/gomori.dir/src/good_funcs.cpp.o: ../src/good_funcs.cpp \
   /usr/include/stdc-predef.h \
@@ -954,8 +958,7 @@ CMakeFiles/gomori.dir/src/main.cpp.o: ../src/main.cpp \
   ../include/simplex_method.h \
   ../include/good_funcs.h \
   ../src/mvag.c \
-  /usr/include/c++/11/stdlib.h \
-  /usr/include/x86_64-linux-gnu/sys/time.h
+  /usr/include/c++/11/stdlib.h
 
 CMakeFiles/gomori.dir/src/mvag.c.o: ../src/mvag.c \
   /usr/include/stdc-predef.h \
@@ -1010,14 +1013,7 @@ CMakeFiles/gomori.dir/src/mvag.c.o: ../src/mvag.c \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/alloca.h \
-  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
-  /usr/include/time.h \
-  /usr/include/x86_64-linux-gnu/bits/time.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/x86_64-linux-gnu/sys/time.h
+  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
 
 CMakeFiles/gomori.dir/src/prepare_simplex.cpp.o: ../src/prepare_simplex.cpp \
   /usr/include/stdc-predef.h \
@@ -1350,8 +1346,6 @@ CMakeFiles/gomori.dir/src/simplex_method.cpp.o: ../src/simplex_method.cpp \
 
 ../src/prepare_simplex.cpp:
 
-/usr/include/x86_64-linux-gnu/sys/time.h:
-
 /usr/include/c++/11/stdlib.h:
 
 ../src/mvag.c:
@@ -1363,6 +1357,14 @@ CMakeFiles/gomori.dir/src/simplex_method.cpp.o: ../src/simplex_method.cpp \
 ../src/main.cpp:
 
 ../src/good_funcs.cpp:
+
+/usr/include/c++/11/bits/stl_multimap.h:
+
+/usr/include/c++/11/bits/stl_map.h:
+
+/usr/include/c++/11/bits/stl_tree.h:
+
+/usr/include/c++/11/map:
 
 /usr/include/c++/11/sstream:
 

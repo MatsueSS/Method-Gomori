@@ -188,4 +188,4 @@ CMakeFiles/gomori.dir/src/main.cpp.o: \
  /home/michael/practisecpp/projects/gomori/include/simplex_method.h \
  /home/michael/practisecpp/projects/gomori/include/good_funcs.h \
  /home/michael/practisecpp/projects/gomori/src/mvag.c \
- /usr/include/c++/11/stdlib.h /usr/include/x86_64-linux-gnu/sys/time.h
+ /usr/include/c++/11/stdlib.h

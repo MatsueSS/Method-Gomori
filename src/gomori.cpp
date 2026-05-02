@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <iostream>
+#include <map>
 
 gomori::gomori(std::vector<std::vector<double>>&& matrix, std::vector<double>&& b, 
                std::vector<double>&& f, std::vector<int>&& sign, optimal_func param)
@@ -61,7 +62,7 @@ void gomori::add_new_restrict()
     }
     
     if(pivot_row == -1) {
-        std::cerr << "Ошибка: не найдена строка для отсечения\n";
+        //std::cerr << "Ошибка: не найдена строка для отсечения\n";
         return;
     }
     
@@ -93,6 +94,7 @@ void gomori::add_new_restrict()
 }
 
 bool gomori::dual_simplex_step() {
+    // Находим строку с самым отрицательным b
     int pivot_row = -1;
     double most_negative = 0;
     for(int i = 0; i < sm.b.size(); ++i) {
@@ -104,29 +106,57 @@ bool gomori::dual_simplex_step() {
     
     if(pivot_row == -1) return true;
     
+    // Ищем столбец с отрицательным коэффициентом
     int pivot_col = -1;
     double min_ratio = std::numeric_limits<double>::max();
     
     for(int j = 0; j < sm.matrix[0].size(); ++j) {
+        // Ищем ТОЛЬКО отрицательные элементы
         if(sm.matrix[pivot_row][j] >= -1e-10) continue;
         
-        if(sm.matrix[pivot_row][j] < -1e-10) {
-            double ratio = sm.f[j] / sm.matrix[pivot_row][j];
-            if (sm.matrix[pivot_row][j] < -1e-10) {
-                double ratio = sm.f[j] / sm.matrix[pivot_row][j];
-                if (ratio < min_ratio) {
-                    min_ratio = ratio;
-                    pivot_col = j;
-                }
-            }
+        // Для двойственного симплекса: min |f_j / a_ij| при a_ij < 0
+        double ratio = std::abs(sm.f[j] / sm.matrix[pivot_row][j]);
+        
+        if(ratio < min_ratio - 1e-10) {
+            min_ratio = ratio;
+            pivot_col = j;
         }
     }
     
+    // Если не нашли отрицательных коэффициентов - проблема!
     if(pivot_col == -1) {
-        std::cerr << "Не найден ведущий столбец в двойственном шаге\n";
-        return false;
+        // std::cerr << "Нет допустимого столбца для двойственного шага\n";
+        // std::cerr << "Строка " << pivot_row << " имеет b = " << sm.b[pivot_row] << "\n";
+        // std::cerr << "Коэффициенты строки: ";
+        // for(int j = 0; j < sm.matrix[0].size(); ++j) {
+        //     std::cerr << sm.matrix[pivot_row][j] << " ";
+        // }
+        // std::cerr << "\n";
+        
+        // Пробуем использовать прямой симплекс для восстановления
+        //std::cerr << "Пробуем прямой симплекс для восстановления допустимости\n";
+        
+        // Искусственная переменная
+        int artificial_col = sm.matrix[0].size();
+        for(int i = 0; i < sm.matrix.size(); ++i) {
+            sm.matrix[i].push_back(0.0);
+        }
+        sm.matrix[pivot_row][artificial_col] = 1.0;
+        sm.f.insert(sm.f.end() - 1, 1000.0); // Большой штраф
+        
+        // Делаем ее базисной
+        sm.basise[pivot_row] = artificial_col;
+        
+        // Нормализуем строку
+        sm.b[pivot_row] = -sm.b[pivot_row]; // Инвертируем знак
+        for(int j = 0; j < sm.matrix[0].size(); ++j) {
+            sm.matrix[pivot_row][j] = -sm.matrix[pivot_row][j];
+        }
+        
+        return true;
     }
-
+    
+    // Выполняем преобразование
     double pivot_val = sm.matrix[pivot_row][pivot_col];
 
     for(int j = 0; j < sm.matrix[0].size(); ++j) {
@@ -185,7 +215,7 @@ bool gomori::primal_simplex_step() {
     }
     
     if(pivot_row == -1) {
-        std::cerr << "Задача не ограничена\n";
+        // std::cerr << "Задача не ограничена\n";
         return false;
     }
 
@@ -226,30 +256,30 @@ int gomori::method_gomori()
     int count = 0;
     const int MAX_ITER = 100;
     
-    std::cout << "Начальное решение симплекс-метода: " << sm.f[sm.f.size()-1] << '\n';
+    // std::cout << "Начальное решение симплекс-метода: " << sm.f[sm.f.size()-1] << '\n';
     
     while(has_remnant() && count < MAX_ITER) {
-        std::cout << "\n--- Итерация Гомори " << count + 1 << " ---\n";
+        // std::cout << "\n--- Итерация Гомори " << count + 1 << " ---\n";
         
         add_new_restrict();
-        std::cout << "Добавлено новое ограничение\n";
+        // std::cout << "Добавлено новое ограничение\n";
         
         int dual_iter = 0;
         while(has_negative_b() && dual_iter < 50) {
             bool success = dual_simplex_step();
             if(!success) {
-                std::cerr << "Двойственный симплекс не сошёлся на итерации " << count << "\n";
+                // std::cerr << "Двойственный симплекс не сошёлся на итерации " << count << "\n";
                 return -1;
             }
             dual_iter++;
         }
         
         if(has_negative_b()) {
-            std::cerr << "Не удалось восстановить допустимость после " << dual_iter << " итераций\n";
+            // std::cerr << "Не удалось восстановить допустимость после " << dual_iter << " итераций\n";
             return -1;
         }
         
-        std::cout << "Допустимость восстановлена. Значение функции: " << sm.f[sm.f.size()-1] << '\n';
+        // std::cout << "Допустимость восстановлена. Значение функции: " << sm.f[sm.f.size()-1] << '\n';
         
         int primal_iter = 0;
         while(primal_iter < 50) {
@@ -265,27 +295,28 @@ int gomori::method_gomori()
             
             bool success = primal_simplex_step();
             if(!success) {
-                std::cerr << "Прямой симплекс не сошёлся\n";
+                // std::cerr << "Прямой симплекс не сошёлся\n";
                 return -1;
             }
             primal_iter++;
         }
         
-        std::cout << "Оптимизация завершена. Значение функции: " << sm.f[sm.f.size()-1] << '\n';
+        // std::cout << "Оптимизация завершена. Значение функции: " << sm.f[sm.f.size()-1] << '\n';
         
-        std::cout << "Текущее решение:\n";
-        for(int i = 0; i < sm.basise.size(); ++i) {
-            if(sm.basise[i] < max_index) {
-                std::cout << "x" << sm.basise[i] + 1 << " = " << sm.b[i] << "\n";
-            }
-        }
+        // std::cout << "Текущее решение:\n";
+        // for(int i = 0; i < sm.basise.size(); ++i) {
+        //     if(sm.basise[i] < max_index) {
+        //         std::cout << "x" << sm.basise[i] + 1 << " = " << sm.b[i] << "\n";
+        //     }
+        // }
         count++;
     }
     
     if(count == 0) {
-        std::cout << "Решение уже целочисленное\n";
+        // std::cout << "Решение уже целочисленное\n";
     } else if(count >= MAX_ITER) {
-        std::cout << "Достигнут максимум итераций\n";
+        // std::cout << "Достигнут максимум итераций\n";
+        return -1;
     }
     
     count_cutting_off = count;

@@ -3,6 +3,8 @@
 #include <cmath>
 #include <chrono>
 
+#include <time.h>
+
 #include "gomori.h"
 #include "mvag.c"
 
@@ -140,73 +142,78 @@ int main(void)
     // std::cout << "  - " << duration_micro.count() << " микросекунд\n";
     // std::cout << "=================================\n";
 
+    
+
     srand(time(nullptr));
-    int i = 1000, nc = 0;
-    while(i != 0){
-        double* values = NULL, *limit = NULL;
-        int l, size;
+    std::vector<std::pair<double, double>> result;
+    int size = 63;
+    while(size <= 63){
+        double time_mvag = 0, time_gomori = 0;
+        for(int i = 0; i < 10; ++i){
+            double* values = NULL, *limit1 = NULL, *limit2 = NULL, *limit3 = NULL;
+            int l1, l2, l3;
 
-        generate_quest(&values, &limit, &size, &l);
+            generate_quest(&values, &limit1, &limit2, &limit3, &size, &l1, &l2, &l3);
 
-        std::vector<std::vector<double>> matrix (size + 1 + size, std::vector<double>(size, 0));
-        std::vector<double> f(values, values+size);
-        f.push_back(0);
-        matrix[0] = std::vector<double>(limit, limit+size);
-        std::vector<double> b (size+1+size, 1);
-        b[0] = l;
-        for(int i = size+1; i < size+size+1; ++i) b[i] = 0;
+            std::vector<std::vector<double>> matrix (size + 3, std::vector<double>(size, 0));
+            std::vector<double> f(values, values+size);
+            f.push_back(0);
+            matrix[0] = std::vector<double>(limit1, limit1+size);
+            matrix[1] = std::vector<double>(limit2, limit2+size);
+            matrix[2] = std::vector<double>(limit3, limit3+size);
+            std::vector<double> b (size+3, 1);
+            b[0] = l1; b[1] = l2; b[2] = l3;
+            for(int i = size+3; i < size+3; ++i) b[i] = 0;
 
-        std::vector<int> sign (size+1+size, 1);
+            std::vector<int> sign (size+3, 1);
 
-        for(int i = 1; i < size+1; ++i){
-            for(int j = 0; j < size; ++j){
-                if(i-1 == j) matrix[i][j] = 1;
-                else matrix[i][j] = 0;
-            }
-        }
-        for(int i = size+1; i < size+size+1; ++i){
-            for(int j = 0; j < size; ++j){
-                if(i-size-1 == j) matrix[i][j] = -1;
-                else matrix[i][j] = 0;
-            }
-        }
-
-        auto n_matrix = matrix;
-        auto n_f = f;
-        auto n_b = b;
-
-        gomori sm(std::move(matrix), std::move(b), std::move(f), std::move(sign), optimal_func::max_func);
-        int c = sm.method_gomori();
-        double res_g = sm.get_optimum();
-
-        if(c == -1) continue;
-
-        TempDancig res = one_dimensional_knapsack(values, limit, size, l);
-        if(std::abs(std::abs(res.val) - std::abs(res_g)) > 1e-10){
-            nc++;
-            std::cout << "===\n";
-            std::cout << "Методы не сошлись\n";
-            std::cout << res.val << ' ' << res_g << '\n';
-
-            print_matrix(n_matrix);
-            print_vector(n_f);
-            print_vector(n_b);
-
-            for(int i = 0; i < size; ++i){
-                if(res.pos & (1 << i)){
-                    std::cout << "1 ";
-                } else {
-                    std::cout << "0 ";
+            for(int i = 3; i < size+3; ++i){
+                for(int j = 0; j < size; ++j){
+                    if(i-3 == j) matrix[i][j] = 1;
+                    else matrix[i][j] = 0;
                 }
             }
 
-            std::cout << "\n===\n";
+            auto n_matrix = matrix;
+            auto n_f = f;
+            auto n_b = b;
+
+            clock_t start1 = clock();
+            gomori sm(std::move(matrix), std::move(b), std::move(f), std::move(sign), optimal_func::max_func);
+            int c = sm.method_gomori();
+            double res_g = sm.get_optimum();
+            if(c == -1) {i--; continue;}
+            clock_t end1 = clock();
+
+            clock_t start2 = clock();
+            BoundResult res = triple_dimensional_knapsack(values, limit1, limit2, limit3, &size, l1, l2, l3);
+            clock_t end2 = clock();
+            std::cout << "Size: " << size << "\ni: " << i << '\n';
+            if(std::abs(std::abs(res.val) - (int)std::abs(res_g)) > 2){
+                std::cout << "Методы не сошлись\n";
+                std::cout << res.val << ' ' << (int)std::abs(res_g) << '\n';
+            } else {
+                std::cout << "Методы сошлись\n";
+            }
+            free(values);
+            free(limit1);
+            free(limit2);
+            free(limit3);
+            time_gomori += (double)(end1-start1);
+            time_mvag += (double)(end2-start2);
         }
-        i--;
-        free(values);
-        free(limit);
+        result.push_back({time_gomori/CLOCKS_PER_SEC, time_mvag/CLOCKS_PER_SEC});
+        size++;
     }
-    std::cout << nc << '\n';
+
+    int i = 63;
+    for(const auto& obj : result){
+        std::cout << "\n=====\n";
+        std::cout << "For " << i++ << ":\n";
+        std::cout << "Gomori: " << obj.first/10 << '\n';
+        std::cout << "MVAG: " << obj.second/10 << '\n';
+        std::cout << "\n=====\n";
+    }
 
     return 0;
 }

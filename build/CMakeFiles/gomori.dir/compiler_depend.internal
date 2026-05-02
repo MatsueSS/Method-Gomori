@@ -526,6 +526,10 @@ CMakeFiles/gomori.dir/src/gomori.cpp.o
  /usr/include/c++/11/bits/unordered_map.h
  /usr/include/c++/11/bits/erase_if.h
  /usr/include/c++/11/pstl/execution_defs.h
+ /usr/include/c++/11/map
+ /usr/include/c++/11/bits/stl_tree.h
+ /usr/include/c++/11/bits/stl_map.h
+ /usr/include/c++/11/bits/stl_multimap.h
 
 CMakeFiles/gomori.dir/src/good_funcs.cpp.o
  /home/michael/practisecpp/projects/gomori/src/good_funcs.cpp
@@ -959,7 +963,6 @@ CMakeFiles/gomori.dir/src/main.cpp.o
  /home/michael/practisecpp/projects/gomori/include/good_funcs.h
  /home/michael/practisecpp/projects/gomori/src/mvag.c
  /usr/include/c++/11/stdlib.h
- /usr/include/x86_64-linux-gnu/sys/time.h
 
 CMakeFiles/gomori.dir/src/mvag.c.o
  /home/michael/practisecpp/projects/gomori/src/mvag.c
@@ -1016,13 +1019,6 @@ CMakeFiles/gomori.dir/src/mvag.c.o
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h
  /usr/include/alloca.h
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h
- /usr/include/time.h
- /usr/include/x86_64-linux-gnu/bits/time.h
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
- /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
- /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
- /usr/include/x86_64-linux-gnu/sys/time.h
 
 CMakeFiles/gomori.dir/src/prepare_simplex.cpp.o
  /home/michael/practisecpp/projects/gomori/src/prepare_simplex.cpp
