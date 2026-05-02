@@ -146,7 +146,7 @@ int main(void)
 
     srand(time(nullptr));
     std::vector<std::pair<double, double>> result;
-    int size = 63;
+    int size = 10;
     while(size <= 63){
         double time_mvag = 0, time_gomori = 0;
         for(int i = 0; i < 10; ++i){
@@ -206,7 +206,7 @@ int main(void)
         size++;
     }
 
-    int i = 63;
+    int i = 10;
     for(const auto& obj : result){
         std::cout << "\n=====\n";
         std::cout << "For " << i++ << ":\n";

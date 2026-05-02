@@ -7,3 +7,5 @@ The Gomory method involves executing the simplex method problem. Everything is i
 The branch-and-bound method is implemented using a priority queue data structure, which I implemented manually. This method also includes an optimization: it doesn't store an array of visited items, but stores a bit mask. This method has been tested on a large number of problems and on randomly generated problems that were tested using Gomory's method.
 
 The final experiment, described in the main.cpp function, demonstrates random problem generation. When solving random problems, the Gomory method and the branch-and-bound method always yielded the same answer for all of these problems. No differences in the answers were found for over 2,000 problems, indicating the correctness of the algorithms. The graphs of the algorithms' results are also fully consistent with their algorithmic complexity, further confirming the correctness of the algorithms.
+
+You can compile this - make a dir build. In build you need make cmake .. .In next step you need make, and now you can launch programm
