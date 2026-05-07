@@ -146,10 +146,10 @@ int main(void)
 
     srand(time(nullptr));
     std::vector<std::pair<double, double>> result;
-    int size = 10;
+    int size = 58;
     while(size <= 63){
         double time_mvag = 0, time_gomori = 0;
-        for(int i = 0; i < 10; ++i){
+        for(int i = 0; i < 100; ++i){
             double* values = NULL, *limit1 = NULL, *limit2 = NULL, *limit3 = NULL;
             int l1, l2, l3;
 
@@ -203,15 +203,20 @@ int main(void)
             time_mvag += (double)(end2-start2);
         }
         result.push_back({time_gomori/CLOCKS_PER_SEC, time_mvag/CLOCKS_PER_SEC});
+        std::cout << "\n=====\n";
+        std::cout << "For " << size << ":\n";
+        std::cout << "Gomori: " << time_gomori/(CLOCKS_PER_SEC*100) << '\n';
+        std::cout << "MVAG: " << time_mvag/(CLOCKS_PER_SEC*100) << '\n';
+        std::cout << "\n=====\n";
         size++;
     }
 
-    int i = 10;
+    int i = 58;
     for(const auto& obj : result){
         std::cout << "\n=====\n";
         std::cout << "For " << i++ << ":\n";
-        std::cout << "Gomori: " << obj.first/10 << '\n';
-        std::cout << "MVAG: " << obj.second/10 << '\n';
+        std::cout << "Gomori: " << obj.first/100 << '\n';
+        std::cout << "MVAG: " << obj.second/100 << '\n';
         std::cout << "\n=====\n";
     }
 

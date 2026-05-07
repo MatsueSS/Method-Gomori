@@ -94,7 +94,6 @@ void gomori::add_new_restrict()
 }
 
 bool gomori::dual_simplex_step() {
-    // Находим строку с самым отрицательным b
     int pivot_row = -1;
     double most_negative = 0;
     for(int i = 0; i < sm.b.size(); ++i) {
@@ -106,15 +105,12 @@ bool gomori::dual_simplex_step() {
     
     if(pivot_row == -1) return true;
     
-    // Ищем столбец с отрицательным коэффициентом
     int pivot_col = -1;
     double min_ratio = std::numeric_limits<double>::max();
     
     for(int j = 0; j < sm.matrix[0].size(); ++j) {
-        // Ищем ТОЛЬКО отрицательные элементы
         if(sm.matrix[pivot_row][j] >= -1e-10) continue;
         
-        // Для двойственного симплекса: min |f_j / a_ij| при a_ij < 0
         double ratio = std::abs(sm.f[j] / sm.matrix[pivot_row][j]);
         
         if(ratio < min_ratio - 1e-10) {
@@ -123,7 +119,6 @@ bool gomori::dual_simplex_step() {
         }
     }
     
-    // Если не нашли отрицательных коэффициентов - проблема!
     if(pivot_col == -1) {
         // std::cerr << "Нет допустимого столбца для двойственного шага\n";
         // std::cerr << "Строка " << pivot_row << " имеет b = " << sm.b[pivot_row] << "\n";
@@ -133,22 +128,18 @@ bool gomori::dual_simplex_step() {
         // }
         // std::cerr << "\n";
         
-        // Пробуем использовать прямой симплекс для восстановления
         //std::cerr << "Пробуем прямой симплекс для восстановления допустимости\n";
         
-        // Искусственная переменная
         int artificial_col = sm.matrix[0].size();
         for(int i = 0; i < sm.matrix.size(); ++i) {
             sm.matrix[i].push_back(0.0);
         }
         sm.matrix[pivot_row][artificial_col] = 1.0;
-        sm.f.insert(sm.f.end() - 1, 1000.0); // Большой штраф
+        sm.f.insert(sm.f.end() - 1, 1000.0);
         
-        // Делаем ее базисной
         sm.basise[pivot_row] = artificial_col;
         
-        // Нормализуем строку
-        sm.b[pivot_row] = -sm.b[pivot_row]; // Инвертируем знак
+        sm.b[pivot_row] = -sm.b[pivot_row];
         for(int j = 0; j < sm.matrix[0].size(); ++j) {
             sm.matrix[pivot_row][j] = -sm.matrix[pivot_row][j];
         }
@@ -156,7 +147,6 @@ bool gomori::dual_simplex_step() {
         return true;
     }
     
-    // Выполняем преобразование
     double pivot_val = sm.matrix[pivot_row][pivot_col];
 
     for(int j = 0; j < sm.matrix[0].size(); ++j) {
